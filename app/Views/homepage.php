@@ -12,24 +12,25 @@
     </header>
 
     <div class="row justify-content-between">
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-9 me-auto">
             <section class="mb-5">
                 <h2 class="section-title">Berita Utama</h2>
                 <div class="row">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach ($latestArticles as $article): ?>
-                            <div class="col-12 col-sm-6 col-md-4 mb-4"> <div class="card h-100 shadow-sm">
+                            <div class="col-11 col-sm-6 col-md-3 mb-2"> 
+                                <div class="card h-100 shadow-sm">
                                     <?php if ($article['thumbnail']): ?>
                                         <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 150px;">
                                     <?php else: ?>
                                         <img src="https://via.placeholder.com/400x150?text=No+Image" class="card-img-top" alt="No Image" style="object-fit: cover; height: 150px;">
                                     <?php endif; ?>
                                     <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title"><?= esc($article['title']) ?></h5>
-                                        <p class="card-text text-muted small">
-                                            Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
+                                        <h5 class="mb-2"><?= word_limiter(strip_tags(html_entity_decode($article['title'])), 8, '...') ?></h5>
+                                        <p class=" mb-2 text-muted small">
+                                            Dipublikasi pada: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                         </p>
-                                        <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
+                                        <p class=""><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
                                         <a href="/berita/<?= esc($article['slug']) ?>" class="btn btn-primary btn-sm mt-auto">Baca Selengkapnya</a>
                                     </div>
                                 </div>
@@ -53,14 +54,14 @@
                         <?php foreach ($latestMagazines as $magazine): ?>
                             <div class="col-12 col-sm-6 col-md-6 mb-4"> <div class="card h-100 shadow-sm">
                                     <div class="row g-0">
-                                        <div class="col-md-5 d-flex justify-content-center align-items-center">
+                                        <div class="col-md-4 d-flex justify-content-center align-items-center">
                                             <?php if ($magazine['cover_image']): ?>
-                                                <img src="/uploads/magazines/covers/<?= esc($magazine['cover_image']) ?>" class="img-fluid rounded-start" alt="<?= esc($magazine['title']) ?>" style="object-fit: cover; height: 150px; width: 100%;">
+                                                <img src="/uploads/magazines/covers/<?= esc($magazine['cover_image']) ?>" class="img-fluid rounded-start" alt="<?= esc($magazine['title']) ?>" style="object-fit: cover; height: 230px; width: 100%;">
                                             <?php else: ?>
                                                 <img src="https://via.placeholder.com/200x150?text=No+Cover" class="img-fluid rounded-start" alt="No Cover" style="object-fit: cover; height: 150px; width: 100%;">
                                             <?php endif; ?>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-8">
                                             <div class="card-body d-flex flex-column">
                                                 <h5 class="card-title"><?= esc($magazine['title']) ?></h5>
                                                 <p class="card-text text-muted small"><?= date('d F Y', strtotime($magazine['published_at'])) ?></p>
@@ -84,7 +85,7 @@
             </section>
         </div>
 
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-3 me-auto ">
             <aside class="sticky-top" style="top: 70px;"> <div class="p-2 bg-light rounded shadow-sm mb-4">
                     <h4 class="mb-3 text-primary">Berita Terbaru</h4>
                     <ul class="list-unstyled">

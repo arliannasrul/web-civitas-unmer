@@ -79,7 +79,7 @@
         </div>
     </nav>
 
-    <main class="container mt-4">
+    <main class=" p-2 p-md-5 mt-4">
         <?= $this->renderSection('content') ?>
     </main>
 

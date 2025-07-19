@@ -1,16 +1,22 @@
 <?php namespace App\Controllers;
 
 use App\Models\MagazineModel;
-use CodeIgniter\Exceptions\PageNotFoundException; // Untuk error 404
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Magazines extends BaseController
 {
+    // Constructor untuk memuat helper sekali saat controller diinisialisasi
+    public function __construct()
+    {
+        helper('text'); // MUAT HELPER 'TEXT' DI SINI
+    }
+
     // Fungsi untuk menampilkan DAFTAR SEMUA MAJALAH
     public function index(): string
     {
         $magazineModel = new MagazineModel();
         $data = [
-            'magazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s')) // Hanya yang sudah dipublikasi
+            'magazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                          ->orderBy('published_at', 'DESC')
                                          ->findAll(),
             'title' => 'Semua Edisi Majalah Civitas'
@@ -23,8 +29,8 @@ class Magazines extends BaseController
     {
         $magazineModel = new MagazineModel();
         $magazine = $magazineModel->where('slug', $slug)
-                                 ->where('published_at <=', date('Y-m-d H:i:s')) // Pastikan sudah dipublikasi
-                                 ->first();
+                             ->where('published_at <=', date('Y-m-d H:i:s'))
+                             ->first();
 
         if (!$magazine) {
             throw PageNotFoundException::forPageNotFound();
