@@ -7,11 +7,11 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <style>
+<style>
         body { padding-top: 56px; } /* Untuk navbar fixed-top Bootstrap */
         .card-img-top {
             width: 100%;
-            height: 200px; /* Tinggi gambar yang konsisten */
+            height: 180px; /* Tinggi gambar yang konsisten */
             object-fit: cover; /* Pastikan gambar mengisi area tanpa terdistorsi */
         }
         .footer {
@@ -21,7 +21,35 @@
             border-top: 1px solid #e9ecef;
             margin-top: 50px;
         }
-        /* Jika Anda punya CSS kustom lainnya, letakkan di sini */
+        /* CSS untuk Sidebar */
+        .sidebar-list-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .sidebar-list-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .sidebar-img {
+            width: 80px; /* Ukuran gambar kecil di sidebar */
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .sidebar-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .sidebar-link:hover {
+            color: #007bff;
+        }
+        .sidebar-text-muted {
+            font-size: 0.85em;
+            color: #666;
+        }
     </style>
 </head>
 <body>

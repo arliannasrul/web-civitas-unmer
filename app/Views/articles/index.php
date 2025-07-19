@@ -8,10 +8,10 @@
     <div class="row">
         <?php if (!empty($articles)): ?>
             <?php foreach ($articles as $article): ?>
-                <div class="col-md-4 mb-4">
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
                     <div class="card h-100 shadow-sm">
                         <?php if ($article['thumbnail']): ?>
-                            <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 250px;">
+                            <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 180px;">
                         <?php else: ?>
                             <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="No Image" style="object-fit: cover; height: 250px;">
                         <?php endif; ?>
@@ -20,7 +20,7 @@
                             <p class="card-text text-muted small">
                                 Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                             </p>
-                            <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 20, '...') ?></p>
+                            <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
                             <a href="/berita/<?= esc($article['slug']) ?>" class="btn btn-primary btn-sm mt-auto">Baca Selengkapnya</a>
                         </div>
                     </div>
