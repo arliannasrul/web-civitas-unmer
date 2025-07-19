@@ -18,7 +18,7 @@
                 <div class="row">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach ($latestArticles as $article): ?>
-                            <div class="col-11 col-sm-6 col-md-3 mb-2"> 
+                            <div class="col-12 col-sm-6 col-md-5 col-lg-3  mb-2"> 
                                 <div class="card h-100 shadow-sm">
                                     <?php if ($article['thumbnail']): ?>
                                         <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 150px;">
