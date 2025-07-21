@@ -4,7 +4,7 @@
 
 <?= $this->section('content') ?>
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-8 p-4">
             <h1 class="mb-3 text-center"><?= esc($article['title']) ?></h1>
             <p class="text-muted small text-center">Dipublikasi pada: <?= date('d F Y H:i', strtotime($article['published_at'])) ?></p>
 
