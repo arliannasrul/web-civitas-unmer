@@ -6,13 +6,54 @@
 
     <header class="header-hero">
         <div class="container">
-            <h1>Selamat Datang di Portal Berita Civitas Kampus</h1>
-            <p>Temukan informasi terbaru seputar kegiatan kampus, prestasi mahasiswa, dan edisi majalah terbaru.</p>
+            <h1>Selamat Datang di Portal Berita Lembaga Pers Mahasiswa Civitas Unmer Malang</h1>
         </div>
     </header>
 
     <div class="row justify-content-between">
         <div class="col-md-9  me-auto">
+                        <div id="carouselExampleCaptions" class="carousel slide mb-5"  data-bs-ride="carousel" data-bs-interval="5000"> >
+                <div class="carousel-indicators">
+                    <?php if (!empty($latestArticles)): ?>
+                        <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?= $key ?>" class="<?= $key === 0 ? 'active' : '' ?>" aria-current="<?= $key === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $key + 1 ?>"></button>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <div class="carousel-inner">
+                    <?php if (!empty($latestArticles)): ?>
+                        <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?> <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
+                                <a href="/berita/<?= esc($article['slug']) ?>"> <?php if ($article['thumbnail']): ?>
+                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="d-block w-100 carousel-img" alt="<?= esc($article['title']) ?>">
+                                    <?php else: ?>
+                                        <img src="https://via.placeholder.com/800x400?text=No+Image" class="d-block w-100 carousel-img" alt="No Image">
+                                    <?php endif; ?>
+                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-3 rounded">
+                                        <h5 class="text-white"><?= esc($article['title']) ?></h5>
+                                        <p class="text-white-50"><?= date('d F Y', strtotime($article['published_at'])) ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="carousel-item active">
+                            <img src="https://via.placeholder.com/800x400?text=Belum+Ada+Berita" class="d-block w-100 carousel-img" alt="No News">
+                            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-3 rounded">
+                                <h5 class="text-white">Tidak Ada Berita Unggulan</h5>
+                                <p class="text-white-50">Silakan tambahkan berita untuk ditampilkan di sini.</p>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
             <section class="mb-5">
                 <h2 class="section-title">Berita Utama</h2>
                 <div class="row">

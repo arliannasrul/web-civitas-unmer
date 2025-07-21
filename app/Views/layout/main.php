@@ -80,6 +80,41 @@
         --bs-danger: #800000;
         --bs-danger-rgb: 128, 0, 0; 
     }
+    /* CSS untuk Carousel */
+.carousel-img {
+    height: 600px; /* Tinggi tetap untuk gambar carousel */
+    object-fit: cover; /* Pastikan gambar mengisi area tanpa terpotong */
+}
+.carousel-caption {
+    padding: 1rem; /* Padding lebih kecil untuk caption */
+    bottom: 0; /* Pastikan caption di bagian bawah */
+    left: 0;
+    right: 0;
+    text-align: left; /* Teks di caption rata kiri */
+    background-color: rgba(0, 0, 0, 0.47); /* Latar belakang semi-transparan */
+}
+.carousel-caption h5 {
+    font-size: 1.5rem; /* Ukuran judul */
+    margin-bottom: 0.5rem;
+}
+.carousel-caption p {
+    font-size: 0.9rem; /* Ukuran teks kecil */
+    margin-bottom: 0;
+}
+@media (max-width: 768px) {
+    .carousel-img {
+        height: 450px; /* Tinggi lebih kecil di mobile */
+    }
+    .carousel-caption {
+        padding: 0.5rem; /* Padding lebih kecil di mobile */
+    }
+    .carousel-caption h5 {
+        font-size: 1.1rem; /* Ukuran judul lebih kecil di mobile */
+    }
+    .carousel-caption p {
+        font-size: 0.75rem; /* Ukuran teks lebih kecil di mobile */
+    }
+}
 
 
 </style>
