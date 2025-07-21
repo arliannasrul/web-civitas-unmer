@@ -12,14 +12,14 @@
     </header>
 
     <div class="row justify-content-between">
-        <div class="col-md-9 me-auto">
+        <div class="col-md-9  me-auto">
             <section class="mb-5">
                 <h2 class="section-title">Berita Utama</h2>
                 <div class="row">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach ($latestArticles as $article): ?>
-                            <div class="col-12 col-sm-6 col-md-5 col-lg-3  mb-2"> 
-                                <div class="card h-100 shadow-sm">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4  mb-2"> 
+                                <div class="card h-100 ">
                                     <?php if ($article['thumbnail']): ?>
                                         <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 150px;">
                                     <?php else: ?>
@@ -31,7 +31,7 @@
                                             Dipublikasi pada: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                         </p>
                                         <p class=""><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                                        <a href="/berita/<?= esc($article['slug']) ?>" class="btn btn-primary btn-sm mt-auto">Baca Selengkapnya</a>
+                                        <a href="/berita/<?= esc($article['slug']) ?>" class="btn btn-danger btn-sm mt-auto" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="text-end mt-3">
-                    <a href="/berita" class="btn btn-outline-primary">Lihat Semua Berita &raquo;</a>
+                    <a href="/berita" class="btn btn-outline-danger" style="--bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000; --bs-btn-color: #800000;">Lihat Semua Berita &raquo;</a>
                 </div>
             </section>
 
@@ -87,7 +87,7 @@
 
         <div class="col-md-3 me-auto ">
             <aside class="sticky-top" style="top: 70px;"> <div class="p-2 bg-light rounded shadow-sm mb-4">
-                    <h4 class="mb-3 text-primary">Berita Terbaru</h4>
+                    <h4 class="mb-3 text-danger">Berita Terbaru</h4>
                     <ul class="list-unstyled">
                         <?php if (!empty($sidebarLatestArticles)): ?>
                             <?php foreach ($sidebarLatestArticles as $article): ?>
@@ -108,7 +108,7 @@
                         <?php endif; ?>
                     </ul>
                     <div class="text-end">
-                        <a href="/berita" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
+                        <a href="/berita" class="btn btn-sm btn-outline-danger" style="--bs-btn-color: #800000; --bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000;">Lihat Semua</a>
                     </div>
                 </div>
 

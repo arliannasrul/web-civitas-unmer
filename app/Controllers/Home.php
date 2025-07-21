@@ -14,7 +14,7 @@ class Home extends BaseController
             // Ambil 6 berita terbaru yang sudah dipublikasi untuk konten utama
             'latestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                              ->orderBy('published_at', 'DESC')
-                                             ->limit(4) // Ubah limit dari 3 menjadi 6
+                                             ->limit(6) // Ubah limit dari 3 menjadi 6
                                              ->findAll(),
             // Ambil 6 majalah terbaru yang sudah dipublikasi untuk konten utama
             'latestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
@@ -24,11 +24,11 @@ class Home extends BaseController
             // Tambahkan juga data untuk sidebar, bisa sama atau beda limitnya
             'sidebarLatestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                    ->orderBy('published_at', 'DESC')
-                                                   ->limit(6) // Untuk sidebar
+                                                   ->limit(4) // Untuk sidebar
                                                    ->findAll(),
             'sidebarLatestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                       ->orderBy('published_at', 'DESC')
-                                                      ->limit(6) // Untuk sidebar
+                                                      ->limit(4) // Untuk sidebar
                                                       ->findAll(),
         ];
 
