@@ -8,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 <style>
-        body { padding-top: 56px; }
+        body { 
+            padding-top: 56px;
+         }
         .card-img-top {
             width: 100%;
             height: 180px;
@@ -101,6 +103,12 @@
     font-size: 0.9rem; /* Ukuran teks kecil */
     margin-bottom: 0;
 }
+.carousel-item {
+        /* Transisi default Bootstrap untuk geser */
+        transition: transform 0.6s ease-in-out; 
+    }
+
+
 @media (max-width: 768px) {
     .carousel-img {
         height: 350px; /* Tinggi lebih kecil di mobile */

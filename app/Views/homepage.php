@@ -10,9 +10,9 @@
         </div>
     </header>
 
-    <div class="row justify-content-between">
-        <div class="col-md-9  me-auto">
-                        <div id="carouselExampleCaptions" class="carousel slide mb-5"  data-bs-ride="carousel" data-bs-interval="3000" >
+    <div class="row justify-content-between p-2 p-lg-5">
+        <div class="col-md-12 col-lg-9 me-auto">
+            <div id="carouselExampleCaptions" class="carousel slide  mb-5 "  data-bs-ride="carousel" data-bs-interval="3000" >
                 <div class="carousel-indicators">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?>
@@ -24,7 +24,7 @@
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?> <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
                                 <a href="/berita/<?= esc($article['slug']) ?>"> <?php if ($article['thumbnail']): ?>
-                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="d-block w-100 carousel-img" alt="<?= esc($article['title']) ?>">
+                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="d-block w-100 carousel-img rounded-3" alt="<?= esc($article['title']) ?>">
                                     <?php else: ?>
                                         <img src="https://via.placeholder.com/800x400?text=No+Image" class="d-block w-100 carousel-img" alt="No Image">
                                     <?php endif; ?>
