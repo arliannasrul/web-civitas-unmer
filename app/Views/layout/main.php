@@ -103,7 +103,7 @@
 }
 @media (max-width: 768px) {
     .carousel-img {
-        height: 450px; /* Tinggi lebih kecil di mobile */
+        height: 350px; /* Tinggi lebih kecil di mobile */
     }
     .carousel-caption {
         padding: 0.5rem; /* Padding lebih kecil di mobile */
@@ -166,8 +166,9 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdsjK1rD7tIe8yvWtcE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdsjK1rD7tIe8yvWtcE" crossorigin="anonymous"></script>
 
     <?= $this->renderSection('scripts') ?>
+    
 </body>
 </html>

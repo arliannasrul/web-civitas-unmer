@@ -12,7 +12,7 @@
 
     <div class="row justify-content-between">
         <div class="col-md-9  me-auto">
-                        <div id="carouselExampleCaptions" class="carousel slide mb-5"  data-bs-ride="carousel" data-bs-interval="5000"> >
+                        <div id="carouselExampleCaptions" class="carousel slide mb-5"  data-bs-ride="carousel" data-bs-interval="3000" >
                 <div class="carousel-indicators">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?>
@@ -28,7 +28,7 @@
                                     <?php else: ?>
                                         <img src="https://via.placeholder.com/800x400?text=No+Image" class="d-block w-100 carousel-img" alt="No Image">
                                     <?php endif; ?>
-                                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 p-3 rounded">
+                                    <div class="carousel-caption  d-md-block bg-dark bg-opacity-75 p-3 rounded">
                                         <h5 class="text-white"><?= esc($article['title']) ?></h5>
                                         <p class="text-white-50"><?= date('d F Y', strtotime($article['published_at'])) ?></p>
                                     </div>
