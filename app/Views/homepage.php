@@ -6,7 +6,7 @@
 
     <header class="header-hero">
         <div class="container">
-            <h1>Selamat Datang di Portal Berita Lembaga Pers Mahasiswa Civitas Unmer Malang</h1>
+            <h1 class="text-center">Selamat Datang di Portal Berita Lembaga Pers Mahasiswa Civitas Universitas Merdeka Malang</h1>
         </div>
     </header>
 
@@ -23,7 +23,7 @@
                 <div class="carousel-inner">
                     <?php if (!empty($latestArticles)): ?>
                         <?php foreach (array_slice($latestArticles, 0, 3) as $key => $article): ?> <div class="carousel-item <?= $key === 0 ? 'active' : '' ?>">
-                                <a href="/berita/<?= esc($article['slug']) ?>"> <?php if ($article['thumbnail']): ?>
+                                <a href="<?= base_url('berita/' . esc($article['slug'])) ?>"> <?php if ($article['thumbnail']): ?>
                                         <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="d-block w-100 carousel-img rounded-3" alt="<?= esc($article['title']) ?>">
                                     <?php else: ?>
                                         <img src="https://via.placeholder.com/800x400?text=No+Image" class="d-block w-100 carousel-img" alt="No Image">
@@ -54,40 +54,39 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <section class="mb-5">
-                <h2 class="section-title">Berita Utama</h2>
-                <div class="row">
-                    <?php if (!empty($latestArticles)): ?>
-                        <?php foreach ($latestArticles as $article): ?>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4  mb-2"> 
-                                <div class="card h-100 ">
-                                    <?php if ($article['thumbnail']): ?>
-                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 150px;">
-                                    <?php else: ?>
-                                        <img src="https://via.placeholder.com/400x150?text=No+Image" class="card-img-top" alt="No Image" style="object-fit: cover; height: 150px;">
-                                    <?php endif; ?>
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="mb-2"><?= word_limiter(strip_tags(html_entity_decode($article['title'])), 8, '...') ?></h5>
-                                        <p class=" mb-2 text-muted small">
-                                            Dipublikasi pada: <?= date('d F Y', strtotime($article['published_at'])) ?>
-                                        </p>
-                                        <p class=""><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                                        <a href="/berita/<?= esc($article['slug']) ?>" class="btn btn-danger btn-sm mt-auto" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="col-12 text-center">
-                            <p>Belum ada berita utama yang tersedia.</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
-                <div class="text-end mt-3">
-                    <a href="/berita" class="btn btn-outline-danger" style="--bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000; --bs-btn-color: #800000;">Lihat Semua Berita &raquo;</a>
-                </div>
+
+            <section class="mb-2 ">
+                <nav class="category-navbar mb-4">
+                    <ul class="nav nav-pills justify-content-center justify-content-md-start">
+                        <li class="nav-item">
+                            <a class="nav-link category-nav-link active" data-category-slug="all" href="#" aria-current="page">Berita Terbaru</a>
+                        </li>
+                        <?php if (!empty($categories)): ?>
+                            <?php foreach ($categories as $category): ?>
+                                <li class="nav-item">
+                                    <a class="nav-link category-nav-link" data-category-slug="<?= esc($category['slug']) ?>" href="#">
+                                        <?= esc($category['name']) ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
             </section>
 
+            <section class="mb-5">
+                <h2 class="section-title">Berita Terbaru</h2>
+                <div id="dynamic-articles-container" class="row">
+                    <?php
+                        // Memuat berita awal saat halaman pertama kali diakses
+                        // Anda bisa memuat partial view di sini dengan articles yang sudah ada di homepage controller
+                        echo view('partials/_article_list', ['articles' => $latestArticles]);
+                    ?>
+                </div>
+                <div class="text-end mt-3">
+                    <a href="<?= base_url('berita') ?>" class="btn btn-outline-danger" style="--bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000; --bs-btn-color: #800000;">Lihat Semua Berita &raquo;</a>
+                </div>
+            </section>
             <section class="mt-5 mb-5">
                 <h2 class="section-title">Edisi Majalah Pilihan</h2>
                 <div class="row">
@@ -107,7 +106,7 @@
                                                 <h5 class="card-title"><?= esc($magazine['title']) ?></h5>
                                                 <p class="card-text text-muted small"><?= date('d F Y', strtotime($magazine['published_at'])) ?></p>
                                                 <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($magazine['description'])), 12, '...') ?></p>
-                                                <a href="/majalah/<?= esc($magazine['slug']) ?>" class="btn btn-success btn-sm mt-auto">Lihat Detail & Baca</a>
+                                                <a href="<?= base_url('majalah/' . esc($magazine['slug'])) ?>" class="btn btn-success btn-sm mt-auto">Lihat Detail & Baca</a>
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +120,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="text-end mt-3">
-                    <a href="/majalah" class="btn btn-outline-success">Lihat Semua Majalah &raquo;</a>
+                    <a href="<?= base_url('majalah') ?>" class="btn btn-outline-success">Lihat Semua Majalah &raquo;</a>
                 </div>
             </section>
         </div>
@@ -139,7 +138,7 @@
                                         <img src="https://via.placeholder.com/80x60?text=No+Image" class="sidebar-img me-3" alt="No Image">
                                     <?php endif; ?>
                                     <div>
-                                        <a href="/berita/<?= esc($article['slug']) ?>" class="sidebar-link d-block"><?= esc($article['title']) ?></a>
+                                        <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="sidebar-link d-block"><?= esc($article['title']) ?></a>
                                         <span class="sidebar-text-muted"><?= date('d M Y', strtotime($article['published_at'])) ?></span>
                                     </div>
                                 </li>
@@ -149,7 +148,7 @@
                         <?php endif; ?>
                     </ul>
                     <div class="text-end">
-                        <a href="/berita" class="btn btn-sm btn-outline-danger" style="--bs-btn-color: #800000; --bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000;">Lihat Semua</a>
+                        <a href="<?= base_url('berita') ?>" class="btn btn-sm btn-outline-danger" style="--bs-btn-color: #800000; --bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000;">Lihat Semua</a>
                     </div>
                 </div>
 
@@ -165,7 +164,7 @@
                                         <img src="https://via.placeholder.com/80x60?text=No+Cover" class="sidebar-img me-3" alt="No Cover">
                                     <?php endif; ?>
                                     <div>
-                                        <a href="/majalah/<?= esc($magazine['slug']) ?>" class="sidebar-link d-block"><?= esc($magazine['title']) ?></a>
+                                        <a href="<?= base_url('majalah/' . esc($magazine['slug'])) ?>" class="sidebar-link d-block"><?= esc($magazine['title']) ?></a>
                                         <span class="sidebar-text-muted"><?= date('d M Y', strtotime($magazine['published_at'])) ?></span>
                                     </div>
                                 </li>
@@ -175,11 +174,57 @@
                         <?php endif; ?>
                     </ul>
                     <div class="text-end">
-                        <a href="/majalah" class="btn btn-sm btn-outline-success">Lihat Semua</a>
+                        <a href="<?= base_url('majalah') ?>" class="btn btn-sm btn-outline-success">Lihat Semua</a>
                     </div>
                 </div>
             </aside>
         </div>
     </div>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryLinks = document.querySelectorAll('.category-nav-link');
+        const articlesContainer = document.getElementById('dynamic-articles-container');
+        const sectionTitle = document.querySelector('.section-title'); // Judul "Berita Terbaru"
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Mencegah navigasi default link
+
+                // Hapus kelas 'active' dari semua link
+                categoryLinks.forEach(navLink => navLink.classList.remove('active'));
+
+                // Tambahkan kelas 'active' ke link yang diklik
+                this.classList.add('active');
+
+                const categorySlug = this.dataset.categorySlug;
+                const url = `<?= base_url('articles/ajax') ?>?category=${categorySlug}`;
+
+                // Ubah judul bagian berita
+                sectionTitle.textContent = this.textContent === 'Semua Berita' ? 'Berita Terbaru' : `${this.textContent}`;
+
+                // Tampilkan loading spinner atau pesan
+                articlesContainer.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div><p class="mt-2 text-muted">Memuat berita...</p></div>';
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        articlesContainer.innerHTML = data.html; // Perbarui konten container
+                    })
+                    .catch(error => {
+                        console.error('Error loading articles:', error);
+                        articlesContainer.innerHTML = '<div class="col-12 text-center py-5"><p class="text-danger">Gagal memuat berita. Silakan coba lagi.</p></div>';
+                    });
+            });
+        });
+
+        // Optional: Trigger 'Semua Berita' saat halaman dimuat pertama kali jika belum ada berita
+        // Atau, pastikan initial load di homepage memang sudah sesuai (saat ini sudah, dari controller)
+        // Jika Anda ingin ini selalu memuat ulang via AJAX saat load, uncomment baris ini:
+        // document.querySelector('.category-nav-link.active').click();
+    });
+</script>
 <?= $this->endSection() ?>

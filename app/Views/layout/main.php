@@ -1,3 +1,6 @@
+<?php
+// app/Views/layout/main.php
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,10 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->renderSection('title') ?> - Berita Civitas Kampus</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 <style>
-        body { 
+        body {
             padding-top: 56px;
            }
         .card-img-top {
@@ -82,8 +87,71 @@
           :root {
         /* Menimpa warna 'danger' Bootstrap menjadi #800000 (Merah Marun) */
         --bs-danger: #800000;
-        --bs-danger-rgb: 128, 0, 0; 
+        --bs-danger-rgb: 128, 0, 0;
     }
+
+ /* Custom CSS untuk Mini Navbar Kategori */
+.category-navbar .nav-link {
+    color: var(--bs-body-color); /* Warna teks default */
+    font-weight: 500; /* Set font-weight konsisten untuk semua kondisi (normal, hover, active) */
+    position: relative;
+    padding-bottom: 0.5rem; /* Memberi ruang untuk garis bawah */
+    transition: all 0.3s ease;
+    border-radius: 0; /* Hapus border-radius default Bootstrap pills */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    /* text-shadow dihapus jika sebelumnya ada untuk ilusi bold */
+}
+
+.category-navbar .nav-link:hover {
+    color: var(--bs-danger); /* Warna teks saat hover */
+    background-color: transparent; /* Pastikan background tidak berubah */
+    /* text-shadow dihapus */
+}
+
+.category-navbar .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px; /* Jaga tinggi garis konsisten */
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.category-navbar .nav-link:hover::after {
+    background-color: var(--bs-danger); /* Warna garis saat hover */
+}
+
+.category-navbar .nav-link.active {
+    color: var(--bs-danger); /* Warna teks saat aktif */
+    background-color: transparent; /* Pastikan background tidak berubah */
+    font-weight: 500; /* UBAH INI: Pastikan sama dengan normal (misal 500) */
+    /* text-shadow dihapus */
+}
+
+.category-navbar .nav-link.active::after {
+    background-color: var(--bs-danger); /* Warna garis saat aktif */
+    height: 3px; /* Tinggi tetap sama dengan kondisi non-aktif */
+}
+
+/* Penyesuaian untuk tampilan mobile agar tidak terlalu rapat */
+.category-navbar .nav-item {
+    margin: 0 5px 10px 5px; /* Margin antar item */
+}
+
+@media (max-width: 767.98px) {
+    .category-navbar .nav-link {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 0.9em;
+    }
+    .category-navbar .nav-pills {
+        flex-wrap: wrap; /* Izinkan wrap agar tidak overflow */
+        justify-content: center !important;
+    }
+}
     /* CSS untuk Carousel */
 .carousel-img {
     height: 600px; /* Tinggi tetap untuk gambar carousel */
@@ -107,7 +175,7 @@
 }
 .carousel-item {
         /* Transisi default Bootstrap untuk geser */
-        transition: transform 0.6s ease-in-out; 
+        transition: transform 0.6s ease-in-out;
     }
 /* Custom CSS for dropdown on hover */
 @media (min-width: 992px) { /* Applies to larger screens (desktop/tablet) */
@@ -132,12 +200,57 @@
     }
 }
 
+/* Kustomisasi Offcanvas untuk Mobile */
+@media (max-width: 991.98px) { /* Untuk ukuran di bawah large (lg) */
+    .navbar-collapse {
+        /* Sembunyikan navbar-collapse default di mobile */
+        display: none !important;
+    }
+    .offcanvas-header {
+        background-color: #800000; /* Warna header offcanvas */
+        color: white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .offcanvas-body {
+        background-color: #800000; /* Warna background body offcanvas */
+    }
+    .offcanvas-body .navbar-nav .nav-item .nav-link,
+    .offcanvas-body .navbar-nav .dropdown-item {
+        color: white; /* Warna teks link di offcanvas */
+        padding: 10px 15px;
+        margin-right: 0; /* Hapus margin yang tidak perlu */
+    }
+    .offcanvas-body .navbar-nav .nav-item .nav-link:hover,
+    .offcanvas-body .navbar-nav .dropdown-item:hover {
+        background-color: #555;
+        color: white;
+    }
+    .offcanvas-body .navbar-nav .dropdown-menu {
+        background-color: #444; /* Warna dropdown menu di offcanvas */
+        border: none;
+        padding: 0;
+        margin-top: 0;
+    }
+    .offcanvas-body .navbar-nav .dropdown-menu li:last-child .dropdown-item {
+        border-bottom: none;
+    }
+    .offcanvas-body .navbar-nav .dropdown-toggle::after {
+        margin-left: 0.5em; /* Sesuaikan panah dropdown */
+    }
+    .offcanvas-body .d-flex.w-100.me-auto {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    /* Pastikan tombol offcanvas-toggler terlihat */
+    .navbar-toggler {
+        display: block; /* Atau display: flex; jika menggunakan icon custom */
+    }
+}
 
 </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container column-gap-3">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <img src="/uploads/logo-civitas.webp" alt="Logo Civitas" class="navbar-brand-logo">
@@ -147,23 +260,26 @@
                 </div>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse column-gap-3" id="navbarNav">
-                <form class="d-flex w-100 me-auto ">
-                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Cari berita" aria-label="Search">
+                <form class="d-flex w-100 me-auto position-relative" action="<?= base_url('articles/search') ?>" method="GET">
+                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Cari berita" aria-label="Search" name="q" id="desktop-search-input">
                     <button class="btn btn-outline-light" type="submit">Cari</button>
+                    <div id="desktop-search-suggestions" class="list-group position-absolute w-100 shadow-lg" style="z-index: 1050; top: 100%; display: none; background-color: white; border-radius: 0.25rem;">
+                        </div>
                 </form>
                 <ul class="navbar-nav ms-auto ">
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('/') ? 'active' : '' ?>" href="/">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= url_is('berita*') ? 'active' : '' ?>" href="/berita">Berita</a>
+                        <a class="nav-link <?= url_is('berita*') ? 'active' : '' ?>" href="<?= base_url('berita') ?>">Berita</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= url_is('majalah*') ? 'active' : '' ?>" href="/majalah">Majalah</a>
+                        <a class="nav-link <?= url_is('majalah*') ? 'active' : '' ?>" href="<?= base_url('majalah') ?>">Majalah</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?= url_is('lainnya*') ? 'active' : '' ?>" href="#" id="navbarDropdownLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -172,7 +288,6 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownLainnya">
                             <li><a class="dropdown-item" href="<?= base_url('menfess') ?>">Menfess</a></li>
                             <li><a class="dropdown-item" href="<?= base_url('puisi') ?>">Puisi</a></li>
-                             <li><a class="dropdown-item" href="<?= base_url('cerpen') ?>">Cerpen</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -181,6 +296,44 @@
             </div>
         </div>
     </nav>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu Civitas</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form class="d-flex w-100 mb-3 position-relative" action="<?= base_url('articles/search') ?>" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Cari berita..." aria-label="Search" name="q" id="mobile-search-input">
+                <button class="btn btn-outline-light" type="submit">Cari</button>
+                <div id="mobile-search-suggestions" class="list-group position-absolute w-100 shadow-lg" style="z-index: 1050; top: 100%; display: none; background-color: white; border-radius: 0.25rem;">
+                    </div>
+            </form>
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link <?= url_is('/') ? 'active' : '' ?>" href="/">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_is('berita*') ? 'active' : '' ?>" href="<?= base_url('berita') ?>">Berita</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_is('majalah*') ? 'active' : '' ?>" href="<?= base_url('majalah') ?>">Majalah</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <?= url_is('lainnya*') ? 'active' : '' ?>" href="#" id="offcanvasDropdownLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Lainnya
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="offcanvasDropdownLainnya">
+                        <li><a class="dropdown-item" href="<?= base_url('menfess') ?>">Menfess</a></li>
+                        <li><a class="dropdown-item" href="<?= base_url('puisi') ?>">Puisi</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_is('tentang') ? 'active' : '' ?> text-nowrap" href="/tentang">Tentang Kami</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <main class=" p-2 p-md-5 mt-4">
         <?= $this->renderSection('content') ?>
@@ -192,34 +345,117 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <?= $this->renderSection('scripts') ?>
 
     <script>
-        // JavaScript untuk Navbar Dinamis
-        let prevScrollpos = window.scrollY; // Posisi scroll sebelumnya
+        // JavaScript untuk Navbar Dinamis (sembunyi/muncul saat scroll)
+        let prevScrollpos = window.scrollY;
 
         window.onscroll = function() {
-            let currentScrollPos = window.scrollY; // Posisi scroll saat ini
-            const navbar = document.querySelector('.navbar'); // Ambil elemen navbar
+            let currentScrollPos = window.scrollY;
+            const navbar = document.querySelector('.navbar');
 
-            if (navbar) { // Pastikan elemen navbar ditemukan
+            if (navbar) {
                 if (prevScrollpos > currentScrollPos) {
-                    // Jika scroll ke atas (posisi sebelumnya lebih besar dari posisi saat ini)
-                    navbar.style.top = "0"; // Tampilkan navbar
+                    navbar.style.top = "0";
                 } else {
-                    // Jika scroll ke bawah (posisi sebelumnya lebih kecil dari posisi saat ini)
-                    // Sembunyikan hanya jika sudah scroll melewati tinggi navbar
-                    // Dan pastikan tinggi navbar ada (bukan 0)
-                    if (currentScrollPos > navbar.offsetHeight && navbar.offsetHeight > 0) { 
-                        navbar.style.top = `-${navbar.offsetHeight}px`; // Sembunyikan navbar ke atas
+                    if (currentScrollPos > navbar.offsetHeight && navbar.offsetHeight > 0) {
+                        navbar.style.top = `-${navbar.offsetHeight}px`;
                     }
                 }
-                prevScrollpos = currentScrollPos; // Perbarui posisi scroll sebelumnya
+                prevScrollpos = currentScrollPos;
             }
         }
+
+        // =========================================================================
+        // JavaScript untuk Fitur Pencarian Autocomplete
+        // =========================================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            const desktopSearchInput = document.getElementById('desktop-search-input');
+            const desktopSuggestionsContainer = document.getElementById('desktop-search-suggestions');
+            const mobileSearchInput = document.getElementById('mobile-search-input');
+            const mobileSuggestionsContainer = document.getElementById('mobile-search-suggestions');
+
+            let searchTimeout;
+            const suggestionDelay = 300; // Delay dalam ms sebelum mengirim permintaan AJAX
+
+            function fetchSuggestions(inputElement, suggestionsContainer) {
+                const query = inputElement.value;
+                if (query.length < 2) { // Minimal 2 karakter untuk memicu pencarian
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+
+                // Tampilkan loading/kosongkan dulu
+                suggestionsContainer.innerHTML = '<a href="#" class="list-group-item list-group-item-action text-center py-2 text-muted">Memuat...</a>';
+                suggestionsContainer.style.display = 'block';
+
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    fetch(`<?= base_url('articles/suggestions') ?>?q=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            suggestionsContainer.innerHTML = ''; // Kosongkan container
+                            if (data.length > 0) {
+                                data.forEach(item => {
+                                    const suggestionItem = document.createElement('a');
+                                    suggestionItem.href = item.url;
+                                    suggestionItem.classList.add('list-group-item', 'list-group-item-action');
+                                    suggestionItem.textContent = item.title;
+                                    suggestionItem.style.color = '#800000'; // Warna teks untuk rekomendasi (putih jika offcanvas)
+                                    suggestionItem.style.backgroundColor = 'white'; // Background putih
+                                    suggestionsContainer.appendChild(suggestionItem);
+                                });
+                            } else {
+                                const noResultsItem = document.createElement('a');
+                                noResultsItem.href = '#'; // Tidak bisa diklik
+                                noResultsItem.classList.add('list-group-item', 'list-group-item-action', 'text-center', 'text-muted');
+                                noResultsItem.textContent = `Tidak ada hasil untuk "${query}"`;
+                                noResultsItem.style.color = '#800000';
+                                noResultsItem.style.backgroundColor = 'white';
+                                suggestionsContainer.appendChild(noResultsItem);
+                            }
+                            suggestionsContainer.style.display = 'block';
+                        })
+                        .catch(error => {
+                            console.error('Error fetching search suggestions:', error);
+                            suggestionsContainer.innerHTML = '<a href="#" class="list-group-item list-group-item-action text-center text-danger">Gagal memuat rekomendasi.</a>';
+                            suggestionsContainer.style.display = 'block';
+                        });
+                }, suggestionDelay);
+            }
+
+            function hideSuggestions(suggestionsContainer) {
+                setTimeout(() => { // Memberi sedikit waktu untuk klik link
+                    suggestionsContainer.style.display = 'none';
+                    suggestionsContainer.innerHTML = '';
+                }, 100);
+            }
+
+            // Event Listener untuk Desktop Search
+            if (desktopSearchInput) {
+                desktopSearchInput.addEventListener('input', () => fetchSuggestions(desktopSearchInput, desktopSuggestionsContainer));
+                desktopSearchInput.addEventListener('focus', () => {
+                    if (desktopSearchInput.value.length >=2) { // Tampilkan kembali jika ada input
+                        fetchSuggestions(desktopSearchInput, desktopSuggestionsContainer);
+                    }
+                });
+                desktopSearchInput.addEventListener('blur', () => hideSuggestions(desktopSuggestionsContainer));
+            }
+
+            // Event Listener untuk Mobile Search
+            if (mobileSearchInput) {
+                mobileSearchInput.addEventListener('input', () => fetchSuggestions(mobileSearchInput, mobileSuggestionsContainer));
+                mobileSearchInput.addEventListener('focus', () => {
+                     if (mobileSearchInput.value.length >=2) { // Tampilkan kembali jika ada input
+                        fetchSuggestions(mobileSearchInput, mobileSuggestionsContainer);
+                    }
+                });
+                mobileSearchInput.addEventListener('blur', () => hideSuggestions(mobileSuggestionsContainer));
+            }
+        });
     </script>
-    
 </body>
 </html>

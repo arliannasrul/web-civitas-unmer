@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 
 class CategoryModel extends Model
 {
-    protected $table      = 'categories'; // Nama tabel di database
+    protected $table      = 'categories-news'; // Nama tabel di database
     protected $primaryKey = 'id';
 
     protected $useAutoIncrement = true;
@@ -15,6 +15,7 @@ class CategoryModel extends Model
     protected $allowedFields = ['name', 'slug'];
 
     protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 }
