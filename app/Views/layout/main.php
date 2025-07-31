@@ -10,7 +10,7 @@
 <style>
         body { 
             padding-top: 56px;
-         }
+           }
         .card-img-top {
             width: 100%;
             height: 180px;
@@ -76,8 +76,10 @@
         }
         .navbar {
             background-color: #800000;
+            transition: top 0.3s ease-in-out; /* Transisi untuk efek scroll */
+            z-index: 1030; /* Pastikan di atas elemen lain */
         }
-         :root {
+          :root {
         /* Menimpa warna 'danger' Bootstrap menjadi #800000 (Merah Marun) */
         --bs-danger: #800000;
         --bs-danger-rgb: 128, 0, 0; 
@@ -107,6 +109,12 @@
         /* Transisi default Bootstrap untuk geser */
         transition: transform 0.6s ease-in-out; 
     }
+/* Custom CSS for dropdown on hover */
+@media (min-width: 992px) { /* Applies to larger screens (desktop/tablet) */
+    .navbar-nav .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
 
 
 @media (max-width: 768px) {
@@ -129,7 +137,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark  fixed-top  ">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top ">
         <div class="container column-gap-3">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <img src="/uploads/logo-civitas.webp" alt="Logo Civitas" class="navbar-brand-logo">
@@ -143,7 +151,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse column-gap-3" id="navbarNav">
-                <form class="d-flex w-100 me-auto  ">
+                <form class="d-flex w-100 me-auto ">
                     <input class="form-control me-2 flex-grow-1" type="search" placeholder="Cari berita" aria-label="Search">
                     <button class="btn btn-outline-light" type="submit">Cari</button>
                 </form>
@@ -156,6 +164,16 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('majalah*') ? 'active' : '' ?>" href="/majalah">Majalah</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <?= url_is('lainnya*') ? 'active' : '' ?>" href="#" id="navbarDropdownLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Lainnya
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownLainnya">
+                            <li><a class="dropdown-item" href="<?= base_url('menfess') ?>">Menfess</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('puisi') ?>">Puisi</a></li>
+                             <li><a class="dropdown-item" href="<?= base_url('cerpen') ?>">Cerpen</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('tentang') ? 'active' : '' ?> text-nowrap" href="/tentang">Tentang Kami</a> </li>
@@ -174,9 +192,34 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdsjK1rD7tIe8yvWtcE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
 
     <?= $this->renderSection('scripts') ?>
+
+    <script>
+        // JavaScript untuk Navbar Dinamis
+        let prevScrollpos = window.scrollY; // Posisi scroll sebelumnya
+
+        window.onscroll = function() {
+            let currentScrollPos = window.scrollY; // Posisi scroll saat ini
+            const navbar = document.querySelector('.navbar'); // Ambil elemen navbar
+
+            if (navbar) { // Pastikan elemen navbar ditemukan
+                if (prevScrollpos > currentScrollPos) {
+                    // Jika scroll ke atas (posisi sebelumnya lebih besar dari posisi saat ini)
+                    navbar.style.top = "0"; // Tampilkan navbar
+                } else {
+                    // Jika scroll ke bawah (posisi sebelumnya lebih kecil dari posisi saat ini)
+                    // Sembunyikan hanya jika sudah scroll melewati tinggi navbar
+                    // Dan pastikan tinggi navbar ada (bukan 0)
+                    if (currentScrollPos > navbar.offsetHeight && navbar.offsetHeight > 0) { 
+                        navbar.style.top = `-${navbar.offsetHeight}px`; // Sembunyikan navbar ke atas
+                    }
+                }
+                prevScrollpos = currentScrollPos; // Perbarui posisi scroll sebelumnya
+            }
+        }
+    </script>
     
 </body>
 </html>

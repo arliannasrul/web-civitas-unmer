@@ -16,6 +16,8 @@ $routes->get('/berita/(:segment)', 'Articles::show/$1'); // Detail berita berdas
 $routes->get('/majalah', 'Magazines::index'); // Daftar semua majalah
 $routes->get('/majalah/(:segment)', 'Magazines::show/$1'); // Detail majalah berdasarkan slug
 
-
+$routes->get('menfess', 'NamaController::menfessMethod');
+$routes->get('puisi', 'NamaController::puisiMethod');
+$routes->get('cerpen', 'NamaController::cerpenMethod');
 // Anda bisa menambahkan halaman statis lain jika diperlukan
 // $routes->get('/tentang', 'Pages::about');
