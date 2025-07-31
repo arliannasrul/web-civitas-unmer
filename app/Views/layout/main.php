@@ -335,7 +335,7 @@
         </div>
     </div>
 
-    <main class=" p-2 p-md-5 mt-4">
+    <main class=" p-2 p-md-5 mt-4 mx-5">
         <?= $this->renderSection('content') ?>
     </main>
 

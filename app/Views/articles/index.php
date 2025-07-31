@@ -5,7 +5,7 @@
 <?= $this->section('content') ?>
 
     <h1 class="text-center mb-5"><?= esc($title) ?></h1>
-
+<div class="">
     <?php if ($activeCategorySlug === null): // Tampilan per kategori di halaman /berita ?>
         <?php if (!empty($latestOverallArticles)): ?>
             <section class="mb-5">
@@ -15,7 +15,7 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card h-100 shadow-sm">
                                 <?php if ($article['thumbnail']): ?>
-                                    <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 180px;">
+                                    <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 280px;">
                                 <?php else: ?>
                                     <img src="https://via.placeholder.com/400x180?text=No+Image" class="card-img-top" alt="No Image" style="object-fit: cover; height: 180px;">
                                 <?php endif; ?>
@@ -49,7 +49,7 @@
                                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                     <div class="card h-100 shadow-sm">
                                         <?php if ($article['thumbnail']): ?>
-                                            <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 180px;">
+                                            <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 280px;">
                                         <?php else: ?>
                                             <img src="https://via.placeholder.com/400x180?text=No+Image" class="card-img-top" alt="No Image" style="object-fit: cover; height: 180px;">
                                         <?php endif; ?>
@@ -118,5 +118,5 @@
             <?= $pager->links() ?>
         </div>
     <?php endif; ?>
-
+</div>
 <?= $this->endSection() ?>
