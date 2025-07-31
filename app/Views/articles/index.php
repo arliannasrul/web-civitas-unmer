@@ -1,3 +1,6 @@
+<?php
+// app/Views/articles/index.php
+?>
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('title') ?><?= esc($title) ?><?= $this->endSection() ?>
@@ -25,7 +28,12 @@
                                         Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                     </p>
                                     <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                                    <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm mt-auto" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
+                                        <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                        <span class="text-muted small">
+                                            <i class="fas fa-heart text-danger"></i> <?= esc($article['likes_count'] ?? 0) ?>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +67,12 @@
                                                 Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                             </p>
                                             <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                                            <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm mt-auto" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                            <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
+                                                <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-heart text-danger"></i> <?= esc($article['likes_count'] ?? 0) ?>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +115,12 @@
                                     Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                 </p>
                                 <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                                <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm mt-auto" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
+                                    <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-heart text-danger"></i> <?= esc($article['likes_count'] ?? 0) ?>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

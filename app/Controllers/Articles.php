@@ -3,9 +3,11 @@
 use App\Models\ArticleModel;
 use App\Models\CategoryModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\API\ResponseTrait; // Tambahkan ini untuk response JSON
 
 class Articles extends BaseController
 {
+     use ResponseTrait; 
     public function __construct()
     {
         helper('text'); // Pastikan helper text dimuat untuk word_limiter
@@ -176,5 +178,27 @@ class Articles extends BaseController
         ];
 
         return view('articles/search_results', $data);
+    }
+
+    // =========================================================================
+    // METHOD BARU UNTUK LIKE/UNLIKE VIA AJAX
+    // =========================================================================
+    public function toggleLike($articleId): \CodeIgniter\HTTP\Response
+    {
+        $articleModel = new ArticleModel();
+        $article = $articleModel->find($articleId);
+
+        if (!$article) {
+            return $this->failNotFound('Artikel tidak ditemukan.');
+        }
+
+        // Logic like: Sederhana, hanya increment likes_count
+        // Jika Anda ingin user hanya bisa like sekali, Anda butuh tabel terpisah
+        // untuk melacak siapa yang sudah like (misal user_id, article_id)
+        $newLikesCount = (int)$article['likes_count'] + 1; // Selalu increment untuk contoh ini
+
+        $articleModel->update($articleId, ['likes_count' => $newLikesCount]);
+
+        return $this->respondCreated(['message' => 'Like berhasil!', 'likes_count' => $newLikesCount]);
     }
 }

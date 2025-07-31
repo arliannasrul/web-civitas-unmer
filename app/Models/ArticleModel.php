@@ -12,7 +12,7 @@ class ArticleModel extends Model
     protected $useSoftDeletes = false; // Tidak menggunakan soft delete
 
     // Kolom-kolom yang diizinkan untuk diisi/diupdate
-    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'category_id', 'published_at'];
+    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'category_id', 'published_at', 'likes_count'];
 
     // Mengaktifkan timestamps (akan otomatis mengisi created_at dan updated_at)
     protected $useTimestamps = true;

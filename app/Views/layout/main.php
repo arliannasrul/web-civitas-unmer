@@ -335,7 +335,7 @@
         </div>
     </div>
 
-    <main class=" p-2 p-md-5 mt-4 mx-5">
+    <main class=" p-2 p-md-5 mt-4 mx-2 mx-md-5">
         <?= $this->renderSection('content') ?>
     </main>
 
@@ -455,7 +455,113 @@
                 });
                 mobileSearchInput.addEventListener('blur', () => hideSuggestions(mobileSuggestionsContainer));
             }
+             // =====================================================================
+            // JavaScript untuk Like Button (dengan localStorage)
+            // =====================================================================
+
+            // Fungsi untuk menandai tombol like sebagai sudah di-like
+            function markAsLiked(button) {
+                const icon = button.querySelector('i');
+                // icon.classList.remove('far', 'text-secondary'); // Hapus outline jika ada
+                // icon.classList.add('fas', 'text-danger'); // Tambah solid dan merah
+                button.classList.add('btn-danger'); // Ubah warna background tombol menjadi merah marun
+                button.classList.remove('btn-light');
+                button.disabled = true; // Disable tombol
+            }
+
+            // Inisialisasi status tombol like saat halaman dimuat
+            document.querySelectorAll('.like-button').forEach(button => {
+                const articleId = button.dataset.articleId;
+                const likedArticles = JSON.parse(localStorage.getItem('likedArticles')) || {};
+
+                if (likedArticles[articleId]) {
+                    markAsLiked(button);
+                }
+
+                button.addEventListener('click', function() {
+                    if (this.disabled) { // Cek lagi jika sudah disabled
+                        // alert('Anda sudah menyukai artikel ini!'); // Opsional: notifikasi
+                        return;
+                    }
+
+                    // Pastikan articleId ada
+                    if (!articleId) {
+                        console.error('Article ID tidak ditemukan pada tombol like.');
+                        alert('Terjadi kesalahan. ID artikel tidak ditemukan.');
+                        return;
+                    }
+
+                    // Cek lagi di localStorage sebelum kirim request
+                    if (likedArticles[articleId]) {
+                        // alert('Anda sudah menyukai artikel ini!'); // Opsional: notifikasi
+                        markAsLiked(this); // Pastikan tombol di-disable
+                        return;
+                    }
+
+                    const currentButton = this; // Simpan referensi tombol yang diklik
+                    const likesCountSpan = currentButton.querySelector('.likes-count');
+
+                    fetch(`<?= base_url('articles/like/') ?>${articleId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Jika Anda menggunakan CSRF, tambahkan token di sini:
+                            // 'X-Requested-With': 'XMLHttpRequest',
+                            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            // Jika respons bukan 2xx, lempar error
+                            return response.json().then(err => {
+                                throw new Error(err.message || 'Gagal memproses like.');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.likes_count !== undefined) {
+                            likesCountSpan.textContent = data.likes_count;
+
+                            // Simpan status like ke localStorage
+                            likedArticles[articleId] = true;
+                            localStorage.setItem('likedArticles', JSON.stringify(likedArticles));
+
+                            markAsLiked(currentButton); // Tandai tombol sebagai sudah di-like
+                        } else {
+                            console.error('Data likes_count tidak ditemukan dalam respons:', data);
+                            alert('Gagal mendapatkan jumlah like terbaru.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error like artikel:', error);
+                        alert('Terjadi kesalahan saat melakukan like: ' + error.message);
+                    });
+                });
+            });
+
+            // =====================================================================
+            // Fungsi untuk Tombol Copy Link (Hanya di show.php)
+            // =====================================================================
+            const copyLinkButton = document.getElementById('copy-link-button');
+            if (copyLinkButton) {
+                copyLinkButton.addEventListener('click', function() {
+                    const articleUrl = this.dataset.articleUrl;
+                    navigator.clipboard.writeText(articleUrl).then(() => {
+                        // Beri feedback ke user
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> Disalin!';
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                        }, 2000); // Kembali ke teks asli setelah 2 detik
+                    }).catch(err => {
+                        console.error('Gagal menyalin link:', err);
+                        alert('Gagal menyalin link. Silakan salin manual.');
+                    });
+                });
+            }
         });
+
     </script>
 </body>
 </html>
