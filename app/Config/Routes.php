@@ -31,13 +31,7 @@ $routes->post('/articles/like/(:num)', 'Articles::toggleLike/$1'); // Menggunaka
 $routes->get('/majalah', 'Magazines::index');
 $routes->get('/majalah/(:segment)', 'Magazines::show/$1');
 
-// ROUTES BARU UNTUK MENFESS
-// ===============================================================
-$routes->get('/menfess', 'Menfess::index');
-// fitur create menfess dihapus, jika ingin mengembalikan, uncomment baris berikut
-// $routes->post('/menfess/create', 'Menfess::create');
-$routes->get('/menfess/(:num)', 'Menfess::show/$1'); // Detail menfess per ID
-$routes->post('/menfess/react/(:num)/(:segment)', 'Menfess::react/$1/$2'); // Endpoint reaksi
+
 
 $routes->get('menfess', 'NamaController::menfessMethod');
 $routes->get('puisi', 'NamaController::puisiMethod');
