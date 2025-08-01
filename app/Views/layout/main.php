@@ -186,10 +186,15 @@
 
 .reaction-popup {
     display: none;
+         position: absolute;
+    top: -65px; /* Menggeser ke atas agar tidak menutupi tombol */
+    left: 50%; /* Posisikan pop-up di tengah secara horizontal */
+    transform: translateX(-50%); /* Geser pop-up kembali ke kiri sebesar 50% lebarnya */
 }
 
 .reaction-popup.show {
     display: flex;
+
 }
 
 @media (max-width: 768px) {
