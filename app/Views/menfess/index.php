@@ -110,26 +110,26 @@
                                
                                 <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
                                     <div class="reaction-wrapper position-relative ">
-                                        <button class="btn btn-light react-toggle-button" data-id="<?= esc($post['id']) ?>">
+                                        <button class="btn btn-light react-toggle-button align-items-center " data-id="<?= esc($post['id']) ?>">
                                             <i class="far fa-thumbs-up me-2"></i>Suka
                                         </button>
                                           <a href="https://api.whatsapp.com/send?text=<?= urlencode('Lihat menfess ini: ' . base_url('menfess/' . esc($post['id']))) ?>" target="_blank" class="btn btn-outline-success">
                                         <i class="fab fa-whatsapp"></i> Bagikan
                                     </a>
                                         <div class="reaction-popup gap-2 gap-md-4 position-absolute rounded-pill p-2 bg-light shadow-lg z-3">
-                                            <button class="btn btn-lg btn-light reaction-button " data-id="<?= esc($post['id']) ?>" data-reaction="likes" data-icon="thumbs-up" data-label="Suka"><svg class="icon text-primary " width="35" height="35">
+                                            <button class="btn btn-lg btn-light reaction-button " data-id="<?= esc($post['id']) ?>" data-reaction="likes" data-icon="thumbs-up" data-label="Setuju"><svg class="icon text-primary " width="35" height="35">
         <use href="#thumbs-up"></use>
     </svg></button>
-                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="dislike" data-icon="thumbs-down" data-label="Tidak Suka"><svg class="icon text-primary " width="35" height="35">
+                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="dislike" data-icon="thumbs-down" data-label="Tidak Setuju"><svg class="icon text-primary " width="35" height="35">
         <use href="#thumbs-down"></use>
     </svg></button>
-                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="fire" data-icon="fire" data-label="Menyala"><svg class="icon text-primary " width="35" height="35">
+                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="fire" data-icon="fire" data-label="Menyala King"><svg class="icon text-primary " width="35" height="35">
         <use href="#fire"></use>
     </svg></button></button>
                                             <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="sad" data-icon="sad" data-label="Mengsedih"><svg class="icon text-primary " width="35" height="35">
         <use href="#sad"></use>
     </svg></button></button>
-                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="laugh" data-icon="laugh" data-label="Wkwkwk"><svg class="icon text-primary " width="35" height="35">
+                                            <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="laugh" data-icon="laugh" data-label="wkwk"><svg class="icon text-primary " width="35" height="35">
         <use href="#laugh"></use>
     </svg></button></button>
                                             <button class="btn btn-lg btn-light reaction-button" data-id="<?= esc($post['id']) ?>" data-reaction="sorry" data-icon="sorry" data-label="Sorry ye"><svg class="icon text-primary " width="35" height="35">
