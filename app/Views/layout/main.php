@@ -184,6 +184,13 @@
     }
 }
 
+.reaction-popup {
+    display: none;
+}
+
+.reaction-popup.show {
+    display: flex;
+}
 
 @media (max-width: 768px) {
     .carousel-img {

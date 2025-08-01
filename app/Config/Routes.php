@@ -31,7 +31,10 @@ $routes->post('/articles/like/(:num)', 'Articles::toggleLike/$1'); // Menggunaka
 $routes->get('/majalah', 'Magazines::index');
 $routes->get('/majalah/(:segment)', 'Magazines::show/$1');
 
-
+// Routes untuk Menfess (Baru)
+$routes->get('menfess', 'Menfess::index');
+$routes->get('menfess/(:num)', 'Menfess::show/$1');
+$routes->post('menfess/react/(:num)/(:segment)', 'Menfess::react/$1/$2');
 
 $routes->get('menfess', 'NamaController::menfessMethod');
 $routes->get('puisi', 'NamaController::puisiMethod');
