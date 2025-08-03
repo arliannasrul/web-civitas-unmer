@@ -17,12 +17,12 @@ class Home extends BaseController
             // Ambil 6 berita terbaru yang sudah dipublikasi untuk konten utama
             'latestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                              ->orderBy('published_at', 'DESC')
-                                             ->limit(6)
+                                             ->limit(5)
                                              ->findAll(),
             // Ambil 4 majalah terbaru yang sudah dipublikasi untuk konten utama
             'latestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                ->orderBy('published_at', 'DESC')
-                                               ->limit(4)
+                                               ->limit(5)
                                                ->findAll(),
             // Tetap ambil berita terbaru untuk sidebar
             'sidebarLatestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
@@ -32,7 +32,7 @@ class Home extends BaseController
             // BARIS INI YANG DITAMBAH: Mengambil berita terpopuler (berdasarkan likes_count) untuk sidebar
             'sidebarPopularArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                     ->orderBy('likes_count', 'DESC')
-                                                    ->limit(4)
+                                                    ->limit(5)
                                                     ->findAll(),
             'sidebarLatestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                       ->orderBy('published_at', 'DESC')

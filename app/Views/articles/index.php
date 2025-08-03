@@ -8,7 +8,7 @@
 <?= $this->section('content') ?>
 
 <h1 class="text-center mb-5"><?= esc($title) ?></h1>
-<div class="">
+<div class="mx-5">
     <?php if ($activeCategorySlug === null): // Tampilan halaman /berita utama ?>
         <?php if (!empty($latestOverallArticles)): ?>
             <section class="mb-5">

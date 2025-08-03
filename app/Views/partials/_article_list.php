@@ -7,7 +7,7 @@
         $firstArticle = array_shift($articles);
     ?>
     <div class="row">
-        <div class="col-lg-5 mb-4 fs-5">
+        <div class="col-lg-5 mb-4 ">
             <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
                 <?php if ($firstArticle['thumbnail']): ?>
                     <a href="<?= base_url('berita/' . esc($firstArticle['slug'])) ?>">
@@ -27,7 +27,7 @@
                     <p class="card-text text-muted small">
                         Dipublikasi pada: <?= date('d F Y', strtotime($firstArticle['published_at'])) ?>
                     </p>
-                    <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($firstArticle['content'])), 30, '...') ?></p>
+                    <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($firstArticle['content'])), 46, '...') ?></p>
                     <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
                         <a href="<?= base_url('berita/' . esc($firstArticle['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
                         <span class="text-muted small">
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="col-lg-7 fs-7">
+        <div class="col-lg-7 ">
             <div class="d-flex flex-column gap-0">
                 <?php foreach ($articles as $article): ?>
                     <div class=" shadow-sm border-0  overflow-hidden">
@@ -46,11 +46,11 @@
                             <div class="col-md-4 pe-4">
                                 <?php if ($article['thumbnail']): ?>
                                     <a href="<?= base_url('berita/' . esc($article['slug'])) ?>">
-                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="img-fluid rounded-start w-100" alt="<?= esc($article['title']) ?>" style="object-fit: cover; max-height: 200px;">
+                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="img-fluid rounded-start w-100" alt="<?= esc($article['title']) ?>" style="object-fit: cover; max-height: 170px;">
                                     </a>
                                 <?php else: ?>
                                     <a href="<?= base_url('berita/' . esc($article['slug'])) ?>">
-                                        <img src="https://via.placeholder.com/400x200?text=No+Image" class="img-fluid rounded-start w-100" alt="No Image" style="object-fit: cover; max-height: 2000px;">
+                                        <img src="https://via.placeholder.com/400x200?text=No+Image" class="img-fluid rounded-start w-100" alt="No Image" style="object-fit: cover; max-height: 170px;">
                                     </a>
                                 <?php endif; ?>
                             </div>
@@ -64,7 +64,7 @@
                                     <p class="card-text text-muted small">
                                         Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                                     </p>
-                                    <p class="card-text mb-3  d-md-block"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
+                                  
                                     <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
                                         <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
                                         <span class="text-muted small">

@@ -3,14 +3,14 @@
 use App\Models\ArticleModel;
 use App\Models\CategoryModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use CodeIgniter\API\ResponseTrait; // Tambahkan ini untuk response JSON
+use CodeIgniter\API\ResponseTrait;
 
 class Articles extends BaseController
 {
-     use ResponseTrait; 
+    use ResponseTrait;
     public function __construct()
     {
-        helper('text'); // Pastikan helper text dimuat untuk word_limiter
+        helper('text');
     }
 
     public function index($categorySlug = null): string
@@ -20,12 +20,12 @@ class Articles extends BaseController
         $categories = $categoryModel->orderBy('name', 'ASC')->findAll();
 
         $data = [
-            'categories'         => $categories,
+            'categories' => $categories,
             'activeCategorySlug' => $categorySlug,
-            'title'              => 'Semua Berita Civitas',
+            'title' => 'Semua Berita Civitas',
             'articlesByCategories' => [],
-            'articles'           => [],
-            'pager'              => null,
+            'articles' => [],
+            'pager' => null,
         ];
 
         if ($categorySlug === null) {
@@ -34,13 +34,14 @@ class Articles extends BaseController
                     ->where('published_at <=', date('Y-m-d H:i:s'))
                     ->where('category_id', $category['id'])
                     ->orderBy('published_at', 'DESC')
-                    ->limit(4)
+                    ->limit(5)
                     ->findAll();
             }
             $data['latestOverallArticles'] = $articleModel
                 ->where('published_at <=', date('Y-m-d H:i:s'))
                 ->orderBy('published_at', 'DESC')
-                ->limit(6)
+                // PERUBAHAN DI SINI: ganti limit(6) menjadi limit(4)
+                ->limit(5)
                 ->findAll();
 
             $data['title'] = 'Semua Berita';
@@ -58,38 +59,37 @@ class Articles extends BaseController
                 ->where('category_id', $category['id'])
                 ->orderBy('published_at', 'DESC');
 
-            $data['articles'] = $query->paginate(9);
+            $data['articles'] = $query->paginate(5);
             $data['pager'] = $articleModel->pager;
         }
 
         return view('articles/index', $data);
     }
 
+    // Metode-metode lainnya tetap sama
     public function show($slug = null): string
     {
         $articleModel = new ArticleModel();
-        // Ambil artikel utama yang ingin ditampilkan
         $article = $articleModel->where('slug', $slug)
-                                ->where('published_at <=', date('Y-m-d H:i:s'))
-                                ->first();
+                                 ->where('published_at <=', date('Y-m-d H:i:s'))
+                                 ->first();
 
         if (!$article) {
             throw PageNotFoundException::forPageNotFound();
         }
 
-        // Ambil berita rekomendasi dari kategori yang sama
         $recommendedArticles = $articleModel
             ->where('published_at <=', date('Y-m-d H:i:s'))
-            ->where('category_id', $article['category_id']) // Dari kategori yang sama
-            ->where('id !=', $article['id']) // Kecuali artikel yang sedang dibaca
+            ->where('category_id', $article['category_id'])
+            ->where('id !=', $article['id'])
             ->orderBy('published_at', 'DESC')
-            ->limit(5) // Misalnya 5 berita rekomendasi
+            ->limit(5)
             ->findAll();
 
         $data = [
             'article' => $article,
             'title' => $article['title'],
-            'recommendedArticles' => $recommendedArticles, // Tambahkan ini ke data
+            'recommendedArticles' => $recommendedArticles,
         ];
         return view('articles/show', $data);
     }
@@ -180,9 +180,6 @@ class Articles extends BaseController
         return view('articles/search_results', $data);
     }
 
-    // =========================================================================
-    // METHOD BARU UNTUK LIKE/UNLIKE VIA AJAX
-    // =========================================================================
     public function toggleLike($articleId): \CodeIgniter\HTTP\Response
     {
         $articleModel = new ArticleModel();
@@ -192,10 +189,7 @@ class Articles extends BaseController
             return $this->failNotFound('Artikel tidak ditemukan.');
         }
 
-        // Logic like: Sederhana, hanya increment likes_count
-        // Jika Anda ingin user hanya bisa like sekali, Anda butuh tabel terpisah
-        // untuk melacak siapa yang sudah like (misal user_id, article_id)
-        $newLikesCount = (int)$article['likes_count'] + 1; // Selalu increment untuk contoh ini
+        $newLikesCount = (int)$article['likes_count'] + 1;
 
         $articleModel->update($articleId, ['likes_count' => $newLikesCount]);
 
