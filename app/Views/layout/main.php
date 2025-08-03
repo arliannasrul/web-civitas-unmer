@@ -16,6 +16,16 @@
         body {
             padding-top: 56px;
            }
+
+           #wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
         .card-img-top {
             width: 100%;
             height: 180px;
@@ -262,7 +272,7 @@
 
 </style>
 </head>
-<body>
+<body id="wrap">
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container column-gap-3">
             <a class="navbar-brand d-flex align-items-center" href="/">
@@ -355,7 +365,7 @@
         <?= $this->renderSection('content') ?>
     </main>
 
-    <footer class="footer">
+    <footer class="footer  ">
         <div class="container">
             <p>&copy; <?= date('Y') ?> Civitas Kampus. All rights reserved.</p>
         </div>
