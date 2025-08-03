@@ -361,10 +361,11 @@ main {
         </div>
     </div>
 
-    <main class=" p-2 p-md-5 mt-4 mx-2 mx-md-5">
+<main class="mt-4">
+    <div class="container py-2 py-md-5">
         <?= $this->renderSection('content') ?>
-    </main>
-
+    </div>
+</main>
     <footer class="footer  ">
         <div class="container">
             <p>&copy; <?= date('Y') ?> Civitas Kampus. All rights reserved.</p>

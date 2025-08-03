@@ -10,7 +10,7 @@
         </div>
     </header>
 
-    <div class="row justify-content-between p-4">
+    <div class="row justify-content-between  container">
         <div class="col-md-12 col-lg-9 me-auto">
             <div id="carouselExampleCaptions" class="carousel slide  mb-5 "  data-bs-ride="carousel" data-bs-interval="3000" >
                 <div class="carousel-indicators">
