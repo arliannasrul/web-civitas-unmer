@@ -67,17 +67,18 @@
             line-height: 1;
         }
         .navbar-brand-text .main-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         .navbar-brand-text .sub-title {
-            font-size: 0.8rem;
+            font-size: 1rem;
             color: rgba(255, 255, 255, 0.75);
             display: block;
             margin-top: -2px;
         }
         .nav-link {
             margin-right: 5px;
+            
         }
         .navbar {
             background-color: #800000;
@@ -276,14 +277,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse column-gap-3" id="navbarNav">
+            <div class="collapse navbar-collapse column-gap-2" id="navbarNav">
                 <form class="d-flex w-100 me-auto position-relative" action="<?= base_url('articles/search') ?>" method="GET">
-                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Cari berita" aria-label="Search" name="q" id="desktop-search-input">
+                    <input class="form-control me-3 flex-grow-1" type="search" placeholder="Cari berita" aria-label="Search" name="q" id="desktop-search-input">
                     <button class="btn btn-outline-light" type="submit">Cari</button>
                     <div id="desktop-search-suggestions" class="list-group position-absolute w-100 shadow-lg" style="z-index: 1050; top: 100%; display: none; background-color: white; border-radius: 0.25rem;">
                         </div>
                 </form>
-                <ul class="navbar-nav ms-auto ">
+                <ul class="navbar-nav ms-auto gap-2 ">
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('/') ? 'active' : '' ?>" href="/">Beranda</a>
                     </li>
@@ -293,12 +294,15 @@
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('majalah*') ? 'active' : '' ?>" href="<?= base_url('majalah') ?>">Majalah</a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link <?= url_is('menfess*') ? 'active' : '' ?>" href="<?= base_url('menfess') ?>">Menfess</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <?= url_is('lainnya*') ? 'active' : '' ?>" href="#" id="navbarDropdownLainnya" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Lainnya
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownLainnya">
-                            <li><a class="dropdown-item" href="<?= base_url('menfess') ?>">Menfess</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('cerpen') ?>">Cerpen</a></li>
                             <li><a class="dropdown-item" href="<?= base_url('puisi') ?>">Puisi</a></li>
                         </ul>
                     </li>
