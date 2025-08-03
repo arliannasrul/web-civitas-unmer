@@ -2,7 +2,7 @@
 
 use App\Models\ArticleModel;
 use App\Models\MagazineModel;
-use App\Models\CategoryModel; // Tambahkan ini
+use App\Models\CategoryModel;
 
 class Home extends BaseController
 {
@@ -10,29 +10,35 @@ class Home extends BaseController
     {
         $articleModel = new ArticleModel();
         $magazineModel = new MagazineModel();
-        $categoryModel = new CategoryModel(); // Inisialisasi CategoryModel
+        $categoryModel = new CategoryModel();
 
         $data = [
+            'title' => 'Beranda',
             // Ambil 6 berita terbaru yang sudah dipublikasi untuk konten utama
             'latestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                              ->orderBy('published_at', 'DESC')
                                              ->limit(6)
                                              ->findAll(),
-            // Ambil 6 majalah terbaru yang sudah dipublikasi untuk konten utama
+            // Ambil 4 majalah terbaru yang sudah dipublikasi untuk konten utama
             'latestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                ->orderBy('published_at', 'DESC')
                                                ->limit(4)
                                                ->findAll(),
-            // Tambahkan juga data untuk sidebar, bisa sama atau beda limitnya
+            // Tetap ambil berita terbaru untuk sidebar
             'sidebarLatestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
-                                                   ->orderBy('published_at', 'DESC')
-                                                   ->limit(4)
-                                                   ->findAll(),
+                                                     ->orderBy('published_at', 'DESC')
+                                                     ->limit(4)
+                                                     ->findAll(),
+            // BARIS INI YANG DITAMBAH: Mengambil berita terpopuler (berdasarkan likes_count) untuk sidebar
+            'sidebarPopularArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
+                                                    ->orderBy('likes_count', 'DESC')
+                                                    ->limit(4)
+                                                    ->findAll(),
             'sidebarLatestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))
                                                       ->orderBy('published_at', 'DESC')
                                                       ->limit(4)
                                                       ->findAll(),
-            'categories' => $categoryModel->orderBy('name', 'ASC')->findAll(), // Ambil semua kategori
+            'categories' => $categoryModel->orderBy('name', 'ASC')->findAll(),
         ];
 
         helper('text');

@@ -78,8 +78,6 @@
                 <h2 class="section-title">Berita Terbaru</h2>
                 <div id="dynamic-articles-container" class="row">
                     <?php
-                        // Memuat berita awal saat halaman pertama kali diakses
-                        // Anda bisa memuat partial view di sini dengan articles yang sudah ada di homepage controller
                         echo view('partials/_article_list', ['articles' => $latestArticles]);
                     ?>
                 </div>
@@ -126,7 +124,33 @@
         </div>
 
         <div class="col-md-3 me-auto ">
-            <aside class="sticky-top" style="top: 70px;"> <div class="p-2 bg-light rounded shadow-sm mb-4">
+            <aside class="sticky-top" style="top: 70px;"> 
+                <div class="p-2 bg-light rounded shadow-sm mb-4">
+                    <h4 class="mb-3 text-danger">Berita Terpopuler</h4>
+                    <ul class="list-unstyled">
+                        <?php if (!empty($sidebarPopularArticles)): ?>
+                            <?php foreach ($sidebarPopularArticles as $article): ?>
+                                <li class="d-flex align-items-center sidebar-list-item">
+                                    <?php if ($article['thumbnail']): ?>
+                                        <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="sidebar-img me-3" alt="<?= esc($article['title']) ?>">
+                                    <?php else: ?>
+                                        <img src="https://via.placeholder.com/80x60?text=No+Image" class="sidebar-img me-3" alt="No Image">
+                                    <?php endif; ?>
+                                    <div>
+                                        <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="sidebar-link d-block"><?= esc($article['title']) ?></a>
+                                        <span class="sidebar-text-muted">Like: <?= esc($article['likes_count'] ?? 0) ?></span>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <li><p>Belum ada berita terpopuler di sidebar.</p></li>
+                        <?php endif; ?>
+                    </ul>
+                    <div class="text-end">
+                        <a href="<?= base_url('berita') ?>" class="btn btn-sm btn-outline-danger" style="--bs-btn-color: #800000; --bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000;">Lihat Semua</a>
+                    </div>
+                </div>
+                <div class="p-2 bg-light rounded shadow-sm mb-4">
                     <h4 class="mb-3 text-danger">Berita Terbaru</h4>
                     <ul class="list-unstyled">
                         <?php if (!empty($sidebarLatestArticles)): ?>
@@ -151,7 +175,6 @@
                         <a href="<?= base_url('berita') ?>" class="btn btn-sm btn-outline-danger" style="--bs-btn-color: #800000; --bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000;">Lihat Semua</a>
                     </div>
                 </div>
-
                 <div class="p-4 bg-light rounded shadow-sm mb-4">
                     <h4 class="mb-3 text-success">Majalah Terbaru</h4>
                     <ul class="list-unstyled">
@@ -194,25 +217,20 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault(); // Mencegah navigasi default link
 
-                // Hapus kelas 'active' dari semua link
                 categoryLinks.forEach(navLink => navLink.classList.remove('active'));
-
-                // Tambahkan kelas 'active' ke link yang diklik
                 this.classList.add('active');
 
                 const categorySlug = this.dataset.categorySlug;
                 const url = `<?= base_url('articles/ajax') ?>?category=${categorySlug}`;
 
-                // Ubah judul bagian berita
                 sectionTitle.textContent = this.textContent === 'Semua Berita' ? 'Berita Terbaru' : `${this.textContent}`;
 
-                // Tampilkan loading spinner atau pesan
                 articlesContainer.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div><p class="mt-2 text-muted">Memuat berita...</p></div>';
 
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
-                        articlesContainer.innerHTML = data.html; // Perbarui konten container
+                        articlesContainer.innerHTML = data.html;
                     })
                     .catch(error => {
                         console.error('Error loading articles:', error);
@@ -220,11 +238,6 @@
                     });
             });
         });
-
-        // Optional: Trigger 'Semua Berita' saat halaman dimuat pertama kali jika belum ada berita
-        // Atau, pastikan initial load di homepage memang sudah sesuai (saat ini sudah, dari controller)
-        // Jika Anda ingin ini selalu memuat ulang via AJAX saat load, uncomment baris ini:
-        // document.querySelector('.category-nav-link.active').click();
     });
 </script>
 <?= $this->endSection() ?>
