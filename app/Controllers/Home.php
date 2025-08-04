@@ -17,7 +17,7 @@ class Home extends BaseController
             // Ambil 6 berita terbaru yang sudah dipublikasi untuk konten utama
             'latestArticles' => $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
                                              ->orderBy('published_at', 'DESC')
-                                             ->limit(5)
+                                             ->limit(8)
                                              ->findAll(),
             // Ambil 4 majalah terbaru yang sudah dipublikasi untuk konten utama
             'latestMagazines' => $magazineModel->where('published_at <=', date('Y-m-d H:i:s'))

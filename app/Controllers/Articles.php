@@ -94,37 +94,39 @@ class Articles extends BaseController
         return view('articles/show', $data);
     }
 
-    public function getArticlesAjax(): \CodeIgniter\HTTP\Response
-    {
-        $categorySlug = $this->request->getGet('category');
-        $articleModel = new ArticleModel();
-        $categoryModel = new CategoryModel();
-        $categoryId = null;
+public function getArticlesAjax(): \CodeIgniter\HTTP\Response
+{
+    $categorySlug = $this->request->getGet('category');
+    $articleModel = new ArticleModel();
+    $categoryModel = new CategoryModel();
+    $categoryId = null;
 
-        if ($categorySlug && $categorySlug !== 'all') {
-            $category = $categoryModel->where('slug', $categorySlug)->first();
-            if ($category) {
-                $categoryId = $category['id'];
-            }
+    if ($categorySlug && $categorySlug !== 'all') {
+        $category = $categoryModel->where('slug', $categorySlug)->first();
+        if ($category) {
+            $categoryId = $category['id'];
         }
-
-        $query = $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
-                              ->orderBy('published_at', 'DESC');
-
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
-
-        $articles = $query->findAll();
-
-        $data = [
-            'articles' => $articles,
-        ];
-
-        $html = view('partials/_article_list', $data);
-
-        return $this->response->setJSON(['html' => $html]);
     }
+
+    $query = $articleModel->where('published_at <=', date('Y-m-d H:i:s'))
+                          ->orderBy('published_at', 'DESC');
+
+    if ($categoryId) {
+        $query->where('category_id', $categoryId);
+    }
+
+    // Batasi jumlah artikel menjadi 8
+    $articles = $query->limit(8)->findAll();
+
+    $data = [
+        'articles' => $articles,
+    ];
+
+    // Gunakan partial view default
+    $html = view('partials/_article_list_default', $data);
+
+    return $this->response->setJSON(['html' => $html]);
+}
 
     public function getSearchSuggestions(): \CodeIgniter\HTTP\Response
     {

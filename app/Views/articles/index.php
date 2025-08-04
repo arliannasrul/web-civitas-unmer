@@ -31,7 +31,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="text-end mt-3">
+                    <div class="text-center mt-3">
                         <a href="<?= base_url('berita/kategori/' . esc($category['slug'])) ?>" class="btn btn-outline-danger" style="--bs-btn-border-color: #800000; --bs-btn-hover-bg: #800000; --bs-btn-color: #800000;">Lihat Semua Berita <?= esc($category['name']) ?> &raquo;</a>
                     </div>
                 </section>

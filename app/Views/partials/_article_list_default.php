@@ -3,13 +3,15 @@
 // Menampilkan daftar berita dengan layout grid standar untuk halaman kategori.
 
 if (!empty($articles)): ?>
-    <div class="row">
+    <div class="row ">
         <?php foreach ($articles as $article): ?>
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="card h-100 shadow-sm border-0 rounded-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-2" >
+                <div class="card h-100 shadow-sm border-1 rounded-3" style="">
                     <?php if ($article['thumbnail']): ?>
                         <a href="<?= base_url('berita/' . esc($article['slug'])) ?>">
-                            <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 180px;">
+                            <div class="card-img-top-zoom">
+    <img src="/uploads/articles/<?= esc($article['thumbnail']) ?>" class="card-img-top" alt="<?= esc($article['title']) ?>" style="object-fit: cover; height: 200px;">
+</div>
                         </a>
                     <?php else: ?>
                         <a href="<?= base_url('berita/' . esc($article['slug'])) ?>">
@@ -21,8 +23,8 @@ if (!empty($articles)): ?>
                         <p class="card-text text-muted small">
                             Dipublikasi: <?= date('d F Y', strtotime($article['published_at'])) ?>
                         </p>
-                        <p class="card-text"><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
-                        <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
+                        <p class="card-text "><?= word_limiter(strip_tags(html_entity_decode($article['content'])), 15, '...') ?></p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
                             <a href="<?= base_url('berita/' . esc($article['slug'])) ?>" class="btn btn-danger btn-sm" style="--bs-btn-bg: #800000">Baca Selengkapnya</a>
                             <span class="text-muted small">
                                 <i class="fas fa-heart text-danger"></i> <?= esc($article['likes_count'] ?? 0) ?>

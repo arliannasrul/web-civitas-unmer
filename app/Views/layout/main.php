@@ -223,6 +223,18 @@ main {
     }
 }
 
+.card-img-top-zoom {
+  overflow: hidden; /* Penting untuk menyembunyikan bagian gambar yang diperbesar */
+}
+
+.card-img-top-zoom img {
+  transition: transform 0.5s ease; /* Transisi yang halus */
+}
+
+.card-img-top-zoom:hover img {
+  transform: scale(1.1) rotate(3deg); /* Perbesar dan putar gambar */
+ 
+}
 /* Kustomisasi Offcanvas untuk Mobile */
 @media (max-width: 991.98px) { /* Untuk ukuran di bawah large (lg) */
     .navbar-collapse {
